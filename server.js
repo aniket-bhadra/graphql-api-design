@@ -1,29 +1,24 @@
-const express = require("express");
-const cors = require("cors");
-require("dotenv").config();
-
-const { ApolloServer } = require("@apollo/server");
-const { startStandaloneServer } = require("@apollo/server/standalone");
+import express from "express";
+import cors from "cors";
+import dotenv from "dotenv";
+import { ApolloServer } from "@apollo/server";
+import { startStandaloneServer } from "@apollo/server/standalone";
+import typeDefs from "./graphql/schema/schema.js";
+import allResolvers from "./graphql/resolvers/index.js";
+import connectDB from "./config/connect.js";
+dotenv.config();
+connectDB(process.env.MONGO_URI);
 
 const port = 8000;
-const server = new ApolloServer({
-  typeDefs: `type Query { hello: String }`,
-  resolvers: {
-    Query: {
-      hello: () => "hello world",
-    },
-  },
-});
+const server = new ApolloServer({ typeDefs, resolvers: allResolvers });
 
-startStandaloneServer(server, {
-  listen: { port },
-})
-  .then(() => console.log(`Apollo Server running on http://localhost:${port}`))
-  .catch((error) => {
-    console.error("Failed to start the server:", error);
-  });
+startStandaloneServer(server, { listen: { port } })
+  .then(() =>
+    console.log(`🚀 Apollo Server running at http://localhost:${port}`)
+  )
+  .catch((error) => console.error("Failed to start the server:", error));
 
-//-------------------------express app
+//------------------------- Express App
 // const app = express();
 
 // app.use(cors());
@@ -34,7 +29,7 @@ startStandaloneServer(server, {
 //   res.send("Hello, World!");
 // });
 
-// // Start server
-// app.listen(port, () => {
-//   console.log("Server running on http://localhost:3000");
+// // Start Express server
+// app.listen(3000, () => {
+//   console.log("Express server running at http://localhost:3000");
 // });
