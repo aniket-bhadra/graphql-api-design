@@ -10,13 +10,14 @@ dotenv.config();
 connectDB(process.env.MONGO_URI);
 
 const port = 8000;
-const server = new ApolloServer({ typeDefs, resolvers: allResolvers });
+//GraphQL server---standaloneserver
+// const server = new ApolloServer({ typeDefs, resolvers: allResolvers });
 
-startStandaloneServer(server, { listen: { port } })
-  .then(() =>
-    console.log(`🚀 Apollo Server running at http://localhost:${port}`)
-  )
-  .catch((error) => console.error("Failed to start the server:", error));
+// startStandaloneServer(server, { listen: { port } })
+//   .then(() =>
+//     console.log(`🚀 Apollo Server running at http://localhost:${port}`)
+//   )
+//   .catch((error) => console.error("Failed to start the server:", error));
 
 //------------------------- Express App
 // const app = express();
@@ -30,6 +31,34 @@ startStandaloneServer(server, { listen: { port } })
 // });
 
 // // Start Express server
-// app.listen(3000, () => {
-//   console.log("Express server running at http://localhost:3000");
+// app.listen(port, () => {
+//   console.log("Express server running at http://localhost:8000");
 // });
+
+//GraphQL server with express
+import { expressMiddleware } from "@apollo/server/express4";
+const server = new ApolloServer({ typeDefs, resolvers: allResolvers });
+await server.start();
+const app = express();
+
+app.use(cors());
+app.use(express.json());
+const user = {
+  roll: "user",
+};
+
+// Sample route
+app.get("/", (req, res) => {
+  res.send("Hello, World!");
+});
+const authMiddleware = (req, res, next) => {
+  if (user.roll === "Admin") next();
+  else res.send("you are not authorized to access this");
+};
+
+app.use("/graphql", authMiddleware, expressMiddleware(server));
+
+// Start Express server
+app.listen(port, () => {
+  console.log("Express server running at http://localhost:8000");
+});
