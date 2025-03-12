@@ -14,6 +14,7 @@ const typeDefs = `#graphql
     verified: Boolean
     createdAt: String
     updatedAt: String
+    courses:[Course]
   }
 
   type Course {
@@ -68,13 +69,16 @@ const typeDefs = `#graphql
 
 # So **every query has a resolver function**, but not all resolvers require arguments.
 
+
   type Query {
     hello: String
     wow: Testing
     users: [User]
     courses: [Course]
     course(id: ID!): Course
+    # lecture: [Lecture]
   }
+
 `;
 
 export default typeDefs;

@@ -12,6 +12,7 @@ const userResolvers = {
       return users;
     },
   },
+
 };
 
 export default userResolvers;
