@@ -12,7 +12,12 @@ const userResolvers = {
       return users;
     },
   },
-
+  Mutation: {
+    newUser: async (_, { name, email }) => {
+      const user = await User.create({ name, email });
+      return user;
+    },
+  },
 };
 
 export default userResolvers;

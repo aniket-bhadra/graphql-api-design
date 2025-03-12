@@ -79,6 +79,9 @@ const typeDefs = `#graphql
     # lecture: [Lecture]
   }
 
+  type Mutation{
+    newUser(name:String!, email:String!): User
+  }
 `;
 
 export default typeDefs;

@@ -6,7 +6,9 @@ const allResolvers = {
     ...userResolvers.Query,
     ...courseResolvers.Query,
   },
-
+  Mutation: {
+    ...userResolvers.Mutation,
+  },
   Course: {
     instructor: async (parent, args) => {
       console.log("inside Course Resolver ", parent);
