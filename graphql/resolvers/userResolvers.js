@@ -3,7 +3,10 @@ import User from "../../models/userModel.js";
 const userResolvers = {
   Query: {
     hello: () => "Hello, World!",
-    wow: () => 25,
+    wow: () => ({
+      email: "some@email.com",
+      id: 25555,
+    }),
     users: async () => {
       const users = await User.find({});
       return users;

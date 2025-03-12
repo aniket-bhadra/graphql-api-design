@@ -45,6 +45,11 @@ const typeDefs = `#graphql
     updatedAt: String!
   }
 
+  type Testing{
+    name: String
+    email: String
+  }
+
 # This defines how many queries we can execute. In the client, if we execute "hello," the corresponding "hello" resolver starts executing.  
 #  If we mention "wow" in the client, the corresponding "wow" resolver will execute.  
 # So, here is a list of queries that shows the available queries. In the client, we call them, and the respective resolver starts executing.  
@@ -65,7 +70,7 @@ const typeDefs = `#graphql
 
   type Query {
     hello: String
-    wow: Int
+    wow: Testing
     users: [User]
     courses: [Course]
     course(id: ID!): Course

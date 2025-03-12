@@ -8,7 +8,7 @@ const courseResolvers = {
     },
     course: async (parent, arg) => {
       const course = await Course.findById(arg.id);
-      console.log(arg.id);
+      console.log("inside course query resolver")
       return course;
     },
   },
