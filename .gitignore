@@ -2,3 +2,4 @@ node_modules
 .env
 client/node_modules
 seedDB.js
+mockData.js
