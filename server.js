@@ -44,7 +44,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 const user = {
-  roll: "user",
+  roll: "Admin",
 };
 
 // Sample route
@@ -60,5 +60,5 @@ app.use("/graphql", authMiddleware, expressMiddleware(server));
 
 // Start Express server
 app.listen(port, () => {
-  console.log("Express server running at http://localhost:8000");
+  console.log(`Express server running at http://localhost:${port}`);
 });
