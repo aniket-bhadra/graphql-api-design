@@ -9,3 +9,13 @@ export const getUsers = gql`
     }
   }
 `;
+
+export const addUser = gql`
+  #graphql
+  mutation addUser($name: String!, $email: String!) {
+    newUser(name: $name, email: $email) {
+      name
+      email
+    }
+  }
+`;
