@@ -78,9 +78,15 @@ const typeDefs = `#graphql
     course(id: ID!): Course
     # lecture: [Lecture]
   }
+  input UpdateUserInput {
+  name: String
+  email: String
+}
 
   type Mutation{
     newUser(name:String!, email:String!): User
+    deleteUser(id: ID!): String
+    updateUser(id:ID!, updatedValue:UpdateUserInput!):User
   }
 `;
 

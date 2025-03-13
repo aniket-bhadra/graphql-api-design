@@ -17,6 +17,24 @@ const userResolvers = {
       const user = await User.create({ name, email });
       return user;
     },
+    deleteUser: async (_, { id }) => {
+      await User.findByIdAndDelete(id);
+      return "Deleted User Successfully";
+    },
+    updateUser: async (_, { id, updatedValue }) => {
+      const updateData = {}; // Create an empty object to store only provided values
+
+      if (updatedValue?.name) updateData.name = updatedValue.name;
+      if (updatedValue?.email) updateData.email = updatedValue.email;
+
+      if (Object.keys(updateData).length === 0) {
+        throw new Error("At least one field (name or email) must be provided.");
+      }
+
+      const user = await User.findByIdAndUpdate(id, updateData, { new: true });
+
+      return user;
+    },
   },
 };
 
