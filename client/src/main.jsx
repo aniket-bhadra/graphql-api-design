@@ -4,7 +4,19 @@ import "./index.css";
 import App from "./App.jsx";
 import { ApolloProvider, ApolloClient, InMemoryCache } from "@apollo/client";
 
-const cache = new InMemoryCache();
+const cache = new InMemoryCache({
+  typePolicies: {
+    Query: {
+      fields: {
+        users: {
+          merge(existing = [], incoming) {
+            return incoming; // Replace old data safely
+          },
+        },
+      },
+    },
+  },
+});
 
 export const apolloClient = new ApolloClient({
   cache,

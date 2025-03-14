@@ -18,8 +18,11 @@ const userResolvers = {
       return user;
     },
     deleteUser: async (_, { id }) => {
-      await User.findByIdAndDelete(id);
-      return "Deleted User Successfully";
+      const user = await User.findByIdAndDelete(id, {
+        returnDocument: "before",
+      });
+      const users = await User.find({});
+      return users;
     },
     updateUser: async (_, { id, updatedValue }) => {
       const updateData = {}; // Create an empty object to store only provided values
